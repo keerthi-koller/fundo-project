@@ -1,0 +1,110 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+/* body{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+.sectionLogin{
+    width: 30%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+    margin: 0px auto;
+    margin-top: 100px;
+    gap: 10px;
+    border-radius: 5%;
+    box-shadow: 0px 0px 5px 2px rgb(233, 205, 205);
+}
+.sectionLogin h1{
+    font-size: 30px;
+    margin: 0px auto;
+    color: orange;
+}
+.sectionLogin h2{
+    font-size: 25px;
+    margin: 0px auto;
+}
+.sectionLogin p{
+    font-size: 20px;
+    margin: 0px auto;
+    margin-bottom: 20px;
+}
+.section1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+}
+.section1 input{
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(196, 160, 160);
+}
+.section1 a{
+    text-decoration: none;
+}
+.btnlogin{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* .btnlogin button{
+    width: 25%;
+    height: 35px;
+    border-radius: 10%;
+    font-weight: bold;
+    border: none;
+    background-color: rgb(6, 6, 125);
+    color: white;
+} */
+.btnlogin a{
+    text-decoration: none;
+}
+
+.sectionBelow{
+    width: 30%;
+    display: flex;
+    padding: 5px;
+    margin: 20px auto;
+    justify-content: space-between;
+}
+
+.sectionBelow .sectionB1{
+    width: 40%;
+    display: flex;
+    gap: 20px;
+}
+
+.sectionB1 p{
+    font-size: 15px;
+    color: #777777;
+}
+
+.sectionB1 i{
+    margin-top: 6px;
+    font-size: 11px;
+    color: #777777;
+}
+
+.sectionBelow .sectionB2{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sectionB2{
+    color: #777777;
+}
