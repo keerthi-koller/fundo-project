@@ -15,7 +15,7 @@
 } */
 
 .section{
-    background-color: white;
+    //* background-color: white; */
     width: 50%;
     height: auto;
     display: flex;
@@ -150,8 +150,5 @@
     width: 50%;
     display: flex;
     justify-content: space-between;
-}
-
-.sectionB21{
     color: #777777;
 }
