@@ -1,22 +1,30 @@
-// import "./loginComponent.css"
+import React from 'react';
 import Button from '@mui/material/Button';
-// import 'boxicons'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { useState } from 'react';
 
 function LoginComponent () {
 
-    function handleSubmit(event) {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+
+    function handleSubmit(event: { preventDefault: () => void; }) {
+        const email = (document.getElementById("email")as HTMLInputElement).value;
+        const password = (document.getElementById("password")as HTMLInputElement).value;
 
         event.preventDefault();
         axios.post("https://fundoonotes.incubation.bridgelabz.com/api/user/login", {
             "email": email,
             "password": password
         })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+            .then(res => {
+                navigate("/header");
+                localStorage.setItem("accessToken", res.data.id);
+            })
+            .catch(err => {
+                setError("email or password is incorrect!! Please try again...");
+            });
     }
 
     return (<>
@@ -27,6 +35,7 @@ function LoginComponent () {
             <div className="flex flex-col justify-center items-start gap-5">
                 <input type="text" placeholder="Email or Phone*" id='email' className='w-full h-12 border border-slate-500 rounded pl-2' />
                 <input type="password" placeholder="Password*" id='password' className='w-full h-12 border border-slate-500 rounded pl-2' />
+                <h1 className='text-center text-4xl font-bold m-1  w-full text-red-500'>{error != null ? error : ""}</h1>
                 <Link to="/" className='text-left'>Forgot password</Link>
                 <div className="w-full flex justify-between items-center">
                     <Link to="/">Create Account</Link>
@@ -37,7 +46,7 @@ function LoginComponent () {
         <section className="w-1/3 flex p-1 m-auto mt-5 justify-between">
             <div className="w-2/5 flex gap-5">
                 <p className='text-0xs text-slate-600'>English (United States)</p>
-                <i className='bx bxs-down-arrow mt-1 text-slate-600'></i>
+                <i className="fa-solid fa-caret-down mt-1 text-slate-600"></i>
             </div>
             <div className="w-1/2 flex justify-between text-slate-600">
                 <span>Help</span>

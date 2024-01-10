@@ -1,17 +1,21 @@
+import React from "react";
 // import "./signUpComponent.css"
 import axios from 'axios';
-import image from './assets/signupimg.png'
+import image from '../assets/signupimg.png'
 import Button from '@mui/material/Button';
-// import 'boxicons'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react';
 
-function SignUpComponent() {
+function SignUpComponent () {
 
-    function handleSubmit(event) {
-        const firstName = document.getElementById("firstName").value;
-        const lastName = document.getElementById("lastName").value;
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+
+    function handleSubmit(event: { preventDefault: () => void; }) {
+        const firstName = (document.getElementById("firstName")as HTMLInputElement).value;
+        const lastName = (document.getElementById("lastName")as HTMLInputElement).value;
+        const email = (document.getElementById("email")as HTMLInputElement).value;
+        const password = (document.getElementById("password")as HTMLInputElement).value;
 
         event.preventDefault();
         axios.post("https://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp", {
@@ -21,8 +25,14 @@ function SignUpComponent() {
             "email": email,
             "password": password
         })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+            .then(res => {
+                console.log(res);
+                navigate("/login");
+            })
+            .catch(err => {
+                console.log(err);
+                setError("invalid credentials");
+            });
     }
 
 
@@ -46,6 +56,7 @@ function SignUpComponent() {
                     </div>
                     <span className='text-0xs'>Use 8 or more characters with a mix of letters, numbers & symbols</span>
                 </div>
+                <h1 className='text-center text-4xl font-bold mt-1 text-red-500'>{error != null ? error : ""}</h1>
                 <div className="w-full flex items-center justify-between">
                     <Link to="/login" className='text-0xl '>Sign in instead</Link>
                     <Button variant="contained" id="register" onClick={handleSubmit}>Register</Button>
@@ -58,7 +69,7 @@ function SignUpComponent() {
         <section className="w-1/2 flex m-auto mt-3">
             <div className="w-1/2 flex gap-5">
                 <p className='text-0xs text-slate-600'>English (United States)</p>
-                <i className='bx bxs-down-arrow mt-1 text-slate-600'></i>
+                <i className="fa-solid fa-caret-down mt-1 text-slate-600"></i>
             </div>
             <div className="w-1/2 flex justify-between text-slate-600">
                 <span>Help</span>
