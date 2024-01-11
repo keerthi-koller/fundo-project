@@ -41,11 +41,6 @@ function HeaderComponent() {
         </section>
         <hr />
         <SideBarComponent />
-        {/* <section className='flex gap-1'>
-            <SideBarComponent datas={val} />
-            <TakeNoteOnClkComponent />
-        </section>
-        <NoteCardComponent /> */}
         <Outlet />
     </>)
 }

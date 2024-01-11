@@ -9,21 +9,28 @@ interface NoteObj {
     isPined: Boolean
 } 
 
-function NoteCardComponent ({data}:{data:NoteObj}, {updatedList}:{updatedList:Function}) {
+function NoteCardComponent ({data, updatedList}:{data:NoteObj,updatedList:Function}) {
 
-    const handleCreateNote = (action:String ) => {
+    const handleArchiveNote = () => {
         const noteId = data.id;
 
         const noteData = {
             "noteIdList":[`${noteId}`],
             "isArchived":true
             }
-
         addArchive(noteData);
-        console.log("FUN UPADTED LIST", updatedList);
-        
-        // updatedList(noteData, action);
-        
+        updatedList(noteData, "archive");
+    }
+
+    const handleTrashNote = () => {
+        const noteId = data.id;
+
+        const noteData = {
+            "noteIdList":[`${noteId}`],
+            "isArchived":true
+            }
+        addArchive(noteData);
+        updatedList(noteData, "archive");
     }
     
 
@@ -46,9 +53,9 @@ function NoteCardComponent ({data}:{data:NoteObj}, {updatedList}:{updatedList:Fu
                     <i className="fa-regular fa-bell text-xl group/edit invisible group-hover/item1:visible text-slate-700"></i>
                     <i className="fa-solid fa-user-plus text-xl group/edit invisible group-hover/item1:visible text-slate-700"></i>
                     <i className="fa-solid fa-palette text-xl group/edit invisible group-hover/item1:visible text-slate-700"></i>
-                    <i className="fa-solid fa-image text-xl group/edit invisible group-hover/item1:visible text-slate-700"></i>
-                    <i className="fa-solid fa-file-arrow-down text-xl group/edit invisible group-hover/item1:visible text-slate-700" onClick={ () => handleCreateNote("archive") }></i>
-                    <i className="fa-solid fa-ellipsis-vertical text-xl group/edit invisible group-hover/item1:visible text-slate-700"></i>
+                    <i className="fa-solid fa-image text-xl group/edit invisible group-hover/item1:visible text-slate-700"></i> 
+                    <i className="fa-solid fa-file-arrow-down text-xl group/edit invisible group-hover/item1:visible text-slate-700" onClick={handleArchiveNote}></i>
+                    <i className="fa-solid fa-ellipsis-vertical text-xl group/edit invisible group-hover/item1:visible text-slate-700" onClick={handleTrashNote}></i>
                 </div>
             </div>
         </section>

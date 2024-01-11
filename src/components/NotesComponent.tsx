@@ -20,16 +20,17 @@ function NotesComponent () {
     }, [] )
 
     async function fetchNotes () {
-        const result = await getNotes();
-        setNotesList(result);
+        const result = await getNotes()
+        setNotesList(result.filter((obj:any) => !obj.isArchived));
+        // setNotesList(result);
     }
 
-    const updateNotesList = (noteObj:NoteObj, action: String) => {
+    const updateNotesList = (noteObj:NoteObj, action:String) => {
         if (action == "create") {
             setNotesList([...notesList, noteObj]);
         }
-        if (action == "archive") {
-            console.log("ARCHIVED");
+        else if (action == "archive") {
+            setNotesList(notesList.filter( ele => ele.id != noteObj.noteIdList[0] ));
         }
     }
 

@@ -21,7 +21,7 @@ function TakeNoteOnClkComponent ({updatedList}:{updatedList:Function}) {
     }
 
     return (<>
-        {booleanVal==true ? 
+        {booleanVal===true ? 
             <section className="flex justify-center mt-20 p-2 w-3/6 m-auto items-center">
                 <div className="bg-white shadow-lg shadow-indigo-500/100 bg-white w-full flex justify-between rounded-xl items-center">
                     <div className="flex p-3 w-3/4">

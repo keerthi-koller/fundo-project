@@ -22,11 +22,25 @@ export const addNote = async (obj: Object) => {
 
 export const getNotes = async () => {
     const id = localStorage.getItem("accessToken");
-    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getNotesList?access_token=${id}`);
+    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getNotesList?access_token=${id}`, configForGetNotes);
     return res.data.data.data;
 }
 
 export const addArchive = async (obj:Object) => {
     const id = localStorage.getItem("accessToken");
     await axios.post(`${REACT_APP_BASE_URL}notes/archiveNotes?access_token=${id}`, JSON.stringify(obj), configForAddNotes);    
+}
+
+export const getArchive = async () => {
+    const id = localStorage.getItem("accessToken");
+    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getArchiveNotesList?access_token=${id}`, configForGetNotes);
+    return res.data.data.data;
+}
+
+export const getTrash = async () => {
+    const id = localStorage.getItem("accessToken");
+    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getTrashNotesList?access_token=${id}`, configForGetNotes);
+    console.log(res);
+    
+    return res.data.data.data;
 }
