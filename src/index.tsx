@@ -7,8 +7,6 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import SignUpComponent from './components/SignUpComponent';
 import HomeComponent from './components/HomeComponent';
 import ErrorComponent from './components/ErrorComponent';
-import NoteCardComponent from './components/NoteCardComponent';
-import TakeNoteComponent from './components/TakeNoteComponent';
 import HeaderComponent from './components/HeaderComponent';
 import SideBarComponent from './components/SideBarComponent';
 import LoginComponent from './components/LoginComponent';
@@ -16,7 +14,6 @@ import TakeNoteOnClkComponent from './components/TakeNoteOnClkComponent';
 import ArchiveComponent from './components/ArchiveComponent';
 import TrashComponent from './components/TrashComponent';
 import NotesComponent from './components/NotesComponent';
-import ProfileComponent from './components/ProfileComponent';
 
 const router = createBrowserRouter([
   { path:'/', element:<SignUpComponent /> },
@@ -44,11 +41,7 @@ const router = createBrowserRouter([
   },
   { path:'sideBar', element:<SideBarComponent /> },
   { path:'*', element:<ErrorComponent /> },
-  { path:'/takeNoteOnClk', element:<TakeNoteOnClkComponent updatedList={()=>{}} /> },
-  { path:'/profile', element:<ProfileComponent /> },
-  
-  
-  
+  { path:'/takeNoteOnClk', element:<TakeNoteOnClkComponent updatedList={()=>{}} /> },  
 ])
 
 // const root = ReactDOM.createRoot(document.getElementById("root"));

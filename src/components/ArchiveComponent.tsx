@@ -9,6 +9,7 @@ interface NoteObj {
     isPined: Boolean,
     noteIdList: string[],
     isArchived: Boolean,
+    color?:String
 }
 
 function ArchiveComponnet () {
@@ -19,14 +20,26 @@ function ArchiveComponnet () {
 
      const fetchArchives = async () => {
         const result = await getArchive();
-        setArchiveList(result);
+        setArchiveList(result.filter( (ele:any) => !ele.isDeleted && ele.isArchived ));
+    }
+
+    const updateArchiveList = (noteObj:NoteObj, action:String) => {
+        if (action == "archiveTrash") {
+            setArchiveList(archiveList.filter( ele => ele.id != noteObj.noteIdList[0] ));
+        }
+        if (action == "unArchive") {
+            setArchiveList(archiveList.filter( ele => ele.id != noteObj.noteIdList[0] ));
+        }
+        if (action == "archiveUpdate") {
+            fetchArchives();
+        }
     }
 
     return (<>
         <div className="flex flex-wrap w-5/6 m-auto gap-2 mt-[-50px]" >
             {archiveList.map( (val:NoteObj) => {
                 return (<>
-                    <NoteCardComponent data={val} updatedList={()=>{}} />
+                    <NoteCardComponent data={val} updatedList={updateArchiveList} />
                 </>)
             } )}
         </div>

@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from 'react';
+import { TextField } from '@mui/material';
 
 function LoginComponent () {
 
@@ -21,6 +22,13 @@ function LoginComponent () {
             .then(res => {
                 navigate("/header");
                 localStorage.setItem("accessToken", res.data.id);
+
+                const details = {
+                    "fullName" : `${res.data.firstName} ${res.data.lastName}`,
+                    "email" : res.data.email,
+                }
+                
+                localStorage.setItem("details", JSON.stringify(details));
             })
             .catch(err => {
                 setError("email or password is incorrect!! Please try again...");
@@ -32,9 +40,9 @@ function LoginComponent () {
             <h1 className='text-amber-400 text-4xl m-auto'>Fundo</h1>
             <h2 className='text-3xl m-auto mb-5'>Sign in</h2>
             <p className='text-xl m-auto mb-5'>Use your Fundo Account</p>
-            <div className="flex flex-col justify-center items-start gap-5">
-                <input type="text" placeholder="Email or Phone*" id='email' className='w-full h-12 border border-slate-500 rounded pl-2' />
-                <input type="password" placeholder="Password*" id='password' className='w-full h-12 border border-slate-500 rounded pl-2' />
+            <div className="flex flex-col justify-center items-start gap-8">
+                <TextField id="email" placeholder="Email or Phone*" type="text" variant="outlined" className='w-full h-12 border border-slate-500 rounded pl-2' />
+                <TextField id="password" placeholder="Password*" type="password" variant="outlined" className='w-full h-12 border border-slate-500 rounded pl-2' />
                 <h1 className='text-center text-4xl font-bold m-1  w-full text-red-500'>{error != null ? error : ""}</h1>
                 <Link to="/" className='text-left'>Forgot password</Link>
                 <div className="w-full flex justify-between items-center">

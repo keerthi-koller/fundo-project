@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import React from "react";
 
 function TakeNoteComponent () {
@@ -6,11 +7,11 @@ function TakeNoteComponent () {
         <section className="flex justify-center mt-20 p-2 w-3/6 m-auto">
             <div className="bg-white shadow-lg shadow-indigo-500/100 bg-white w-full flex flex-col rounded-xl">
                 <div className="flex p-5 justify-between w-full">
-                    <input type="text" placeholder="Title" className="w-4/5 p-2 font-normal text-2xl font-bold text-slate-100" />
+                    <TextField placeholder="Title" type="text" variant="outlined" className="w-4/5 p-2 font-normal text-2xl font-bold text-slate-100" />
                     <i className="fa-solid fa-thumbtack text-2xl text-slate-400 bg-white"></i>
                 </div>
                 <div className="p-5 mb-12 w-full">
-                    <input type="text" placeholder="Take a note..." className="text-xl w-full p-2" />
+                    <TextField placeholder="Take a note..." type="text" variant="outlined" className="text-xl w-full p-2" />
                 </div>
                 <div className="p-5 w-full flex justify-between">
                     <div className="w-1/2 flex justify-between text-slate-500">

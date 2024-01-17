@@ -9,7 +9,9 @@ interface NoteObj {
     id: string,
     isArchived: Boolean,
     isPined: Boolean,
-    noteIdList: string[]
+    noteIdList: string[],
+    noteId:String,
+    color?:String
 }
 
 function NotesComponent () {
@@ -21,16 +23,24 @@ function NotesComponent () {
 
     async function fetchNotes () {
         const result = await getNotes()
-        setNotesList(result.filter((obj:any) => !obj.isArchived));
-        // setNotesList(result);
+        setNotesList(result.filter((obj:any) => !obj.isArchived && !obj.isDeleted));
     }
 
     const updateNotesList = (noteObj:NoteObj, action:String) => {
         if (action == "create") {
             setNotesList([...notesList, noteObj]);
         }
-        else if (action == "archive") {
+        if (action == "archive") {
             setNotesList(notesList.filter( ele => ele.id != noteObj.noteIdList[0] ));
+        }
+        if (action == "trash") {
+            setNotesList(notesList.filter( ele => ele.id != noteObj.noteIdList[0] ));
+        }
+        if (action == "update") {
+            fetchNotes();
+        }
+        if (action == "changeBgColor") {
+            fetchNotes();
         }
     }
 
