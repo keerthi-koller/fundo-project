@@ -21,19 +21,19 @@ export const addNote = async (obj: Object) => {
 }
 
 export const getNotes = async () => {
-    const id = localStorage.getItem("accessToken");
-    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getNotesList?access_token=${id}`, configForGetNotes);
+    const accessToken = localStorage.getItem("accessToken");
+    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getNotesList?access_token=${accessToken}`, configForGetNotes);
     return res.data.data.data;
 }
 
 export const addArchive = async (obj:Object) => {
-    const id = localStorage.getItem("accessToken");
-    await axios.post(`${REACT_APP_BASE_URL}notes/archiveNotes?access_token=${id}`, JSON.stringify(obj), configForAddNotes);    
+    const accessToken = localStorage.getItem("accessToken");
+    await axios.post(`${REACT_APP_BASE_URL}notes/archiveNotes?access_token=${accessToken}`, JSON.stringify(obj), configForAddNotes);    
 }
 
 export const getArchive = async () => {
-    const id = localStorage.getItem("accessToken");
-    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getArchiveNotesList?access_token=${id}`, configForGetNotes);
+    const accessToken = localStorage.getItem("accessToken");
+    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getArchiveNotesList?access_token=${accessToken}`, configForGetNotes);
     return res.data.data.data;
 }
 
@@ -43,8 +43,8 @@ export const addTrash = async (obj:Object) => {
 }
 
 export const getTrash = async () => {
-    const id = localStorage.getItem("accessToken");
-    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getTrashNotesList?access_token=${id}`, configForGetNotes);
+    const accessToken = localStorage.getItem("accessToken");
+    const res =  await axios.get(`${REACT_APP_BASE_URL}notes/getTrashNotesList?access_token=${accessToken}`, configForGetNotes);
     return res.data.data.data;
 }
 
@@ -58,4 +58,9 @@ export const updateNote = async (obj:any) => {
 
 export const changeBgColor = async (obj:any) => {
     await axios.post(`${REACT_APP_BASE_URL}notes/changesColorNotes`, JSON.stringify(obj), configForAddNotes);
+}
+
+export const pinUnpinNotes = async (obj:any) => {
+    const accessToken = localStorage.getItem("accessToken");
+    await axios.post(`${REACT_APP_BASE_URL}notes/pinUnpinNotes?access_token=${accessToken}`, JSON.stringify(obj), configForAddNotes);
 }

@@ -1,5 +1,5 @@
-import React, { HtmlHTMLAttributes, useState } from "react";
-import { addArchive, addNote, addTrash, changeBgColor, deleteTrash, updateNote } from "../utils/NoteUtil";
+import React, { useState } from "react";
+import { addArchive, addTrash, changeBgColor, deleteTrash, pinUnpinNotes, updateNote } from "../utils/NoteUtil";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
@@ -13,12 +13,13 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import FormatColorResetOutlinedIcon from '@mui/icons-material/FormatColorResetOutlined';
 import Modal from '@mui/material/Modal';
-import { useLocation } from "react-router-dom";
-import { Box, Button, IconButton, TextField } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Button, IconButton, TextField } from "@mui/material";
 import UndoIcon from '@mui/icons-material/Undo';
 import RedoOutlinedIcon from '@mui/icons-material/RedoOutlined';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import PushPinSharpIcon from '@mui/icons-material/PushPinSharp';
 
 interface NoteObj {
     title: string,
@@ -29,7 +30,7 @@ interface NoteObj {
     color?:String
 } 
 
-function NoteCardComponent ({data, updatedList}:{data:NoteObj,updatedList:Function}) {
+function NoteCardComponent ({data, updatedList, pin}:{data:NoteObj,updatedList:Function, pin:Boolean}) {
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const openColor = Boolean(anchorEl);
@@ -49,15 +50,21 @@ function NoteCardComponent ({data, updatedList}:{data:NoteObj,updatedList:Functi
         setAnchorElMore(null);
     };
 
+    const navigate = useNavigate();
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         if (routeLocation !== "/header/trash") {
             setOpen(true);
+            // navigate(`/notes?id=${data.id}`);
         }
     };
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        // navigate(``);
+    };
   
-    const routeLocation = useLocation().pathname;    
+    const routeLocation = useLocation().pathname;
 
     const handleArchiveNote = () => {
         const noteId = data.id;
@@ -93,7 +100,6 @@ function NoteCardComponent ({data, updatedList}:{data:NoteObj,updatedList:Functi
     }
 
     const handleUnArchiveNote = () => {
-
         const noteId = data.id;
 
         const noteData = {
@@ -146,22 +152,49 @@ function NoteCardComponent ({data, updatedList}:{data:NoteObj,updatedList:Functi
             "noteIdList":[`${noteId}`],
             "color":colorName,
             }
-            console.log(noteData);
             
         changeBgColor(noteData);
         updatedList(noteData, "changeBgColor");
     }
+
+    const pinNote = () => {
+        const noteId = data.id;
+
+        const noteData = {
+            "noteIdList":[`${noteId}`],
+            "isPined":true,
+            }
+            
+        pinUnpinNotes(noteData);
+        updatedList(noteData, "pinNote");
+    }
+
+    const unPinNote = () => {
+        const noteId = data.id;
+
+        const noteData = {
+            "noteIdList":[`${noteId}`],
+            "isPined":false,
+            }
+            
+        pinUnpinNotes(noteData);
+        updatedList(noteData, "unPinNote");
+    }
     
 
     return (<>
-                <section className="group/item1 flex mt-20 xl:m-auto ml-1 w-[150px] xl:w-[250px] relative">
+                <section className="group/item1 flex mt-10 xl:mt-20 xl:m-auto ml-1 w-[150px] xl:w-[250px] relative">
                     <div className="group/edit invisible group-hover/item1:visible">
                         <h1 className="bg-white w-[25px] h-[20px] rounded-full absolute left-0 top-0"><CheckCircleIcon sx={{fontSize: 30}} /></h1>
                     </div>
                     <div id="cardDiv" className="shadow-lg shadow-indigo-500/100 w-full flex flex-col rounded-xl" style={{backgroundColor:`${data.color}`}}>
-                        <div className="flex p-5 w-full justify-between text-wrap" onClick={handleOpen}>
-                            <h1 className="font-normal text-2xl font-bold">{data.title}</h1>
-                            <h1 title="Pin" className="text-2xl mt-[-10px] text-black-600 group/edit invisible group-hover/item1:visible" ><PushPinOutlinedIcon /></h1>
+                        <div className="flex p-5 w-full justify-between text-wrap">
+                            <h1 className="font-normal text-2xl font-bold" onClick={handleOpen}>{data.title}</h1>
+                            { pin ?
+                                <IconButton color="secondary" title="unPin" className="text-2xl mt-[-10px] text-black-600 group/edit invisible group-hover/item1:visible" onClick={unPinNote} ><PushPinSharpIcon /></IconButton>
+                                :
+                                <IconButton title="Pin" className="text-2xl mt-[-10px] text-black-600 group/edit invisible group-hover/item1:visible" onClick={pinNote} ><PushPinOutlinedIcon /></IconButton>    
+                            }
                         </div>
                         <div className="ml-5 w-full mr-5 text-wrap" onClick={handleOpen}>
                             <textarea value={data.description} className="p-1 text-xl resize-none h-auto w-5/6 bg-transparent outline-none" readOnly/>

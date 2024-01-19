@@ -36,7 +36,7 @@ function TrashComponnet () {
         <div className="flex flex-wrap w-5/6 m-auto gap-2 mt-[-50px]" >
             {trashList.map( (val:NoteObj) => {
                 return (<>
-                    <NoteCardComponent data={val} updatedList={updateTrashList} />
+                    <NoteCardComponent data={val} pin={false} updatedList={updateTrashList} />
                 </>)
             } )}
         </div>

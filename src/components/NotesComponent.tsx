@@ -17,13 +17,21 @@ interface NoteObj {
 function NotesComponent () {
 
     const [notesList, setNotesList] = useState<NoteObj[]>([]);
+    const [pinNotesList, setPinNotesList] = useState<NoteObj[]>([]);
+
     useEffect( () => {
+        fetchPinedNotes();
         fetchNotes();
     }, [] )
 
     async function fetchNotes () {
         const result = await getNotes()
-        setNotesList(result.filter((obj:any) => !obj.isArchived && !obj.isDeleted));
+        setNotesList(result.filter((obj:any) => !obj.isArchived && !obj.isDeleted && !obj.isPined));
+    }
+
+    async function fetchPinedNotes () {
+        const result = await getNotes();
+        setPinNotesList(result.filter( (obj:any) => obj.isPined && !obj.isDeleted && !obj.isArchived ));
     }
 
     const updateNotesList = (noteObj:NoteObj, action:String) => {
@@ -42,6 +50,14 @@ function NotesComponent () {
         if (action == "changeBgColor") {
             fetchNotes();
         }
+        if (action == "pinNote") {
+            setNotesList(notesList.filter( ele => ele.id != noteObj.noteIdList[0] ));
+            fetchPinedNotes();
+        }
+        if (action == "unPinNote") {
+            setPinNotesList(pinNotesList.filter( ele => ele.id != noteObj.noteIdList[0] ));
+            fetchNotes();
+        }
     }
 
 
@@ -50,12 +66,21 @@ function NotesComponent () {
             <TakeNoteOnClkComponent updatedList={updateNotesList} />
         </div>
         <div className="flex flex-wrap w-5/6 m-auto gap-2 mt-10" >
+            <h1 className="block font-bold">Pinned</h1>
+            {pinNotesList.map( (val:NoteObj) => {
+                return (<>
+                    <NoteCardComponent data={val} pin={true} updatedList={updateNotesList} />
+                </>)
+            } )}           
+        </div>
+        <hr className="mt-10 h-[2px] bg-slate-400" />
+        <div className="flex flex-wrap w-5/6 m-auto gap-2 mt-10" >
+            <h1 className="block font-bold">Others</h1>
             {notesList.map( (val:NoteObj) => {
                 return (<>
-                    <NoteCardComponent data={val} updatedList={updateNotesList} />
+                    <NoteCardComponent data={val} pin={false} updatedList={updateNotesList} />
                 </>)
             } )}
-            
         </div>
     </>)
 }
