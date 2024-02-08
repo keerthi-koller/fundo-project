@@ -127,13 +127,14 @@ function HeaderComponent() {
         setAnchorElProfile(null);
     };
 
-    const [profile, setProfile] = useState(false);
+    // const [profile, setProfile] = useState(false);
     const {fullName, email} =  JSON.parse(localStorage.getItem("details") || "");
     const navigate = useNavigate();
 
     const userLogout = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("details");
+        navigate("/login");
     }
 
     return (<>
@@ -193,8 +194,8 @@ function HeaderComponent() {
                                                         <h1 className='text-2xl'>Hi, {fullName}</h1>
                                                     </div>
                                                     <div className='flex gap-10 w-4/6'>
-                                                        <Button variant="outlined" className='w-4/6 h-[60px]' onClick={ () => { navigate("/login"); userLogout(); } }>Sign In</Button>
-                                                        <Button variant="outlined" className='w-4/6 h-[60px]' onClick={ () => { navigate("/login"); userLogout(); } }>Logout</Button>
+                                                        <Button variant="outlined" className='w-4/6 h-[60px]' onClick={ () => { userLogout(); } }>Sign In</Button>
+                                                        <Button variant="outlined" className='w-4/6 h-[60px]' onClick={ () => { userLogout(); } }>Logout</Button>
                                                     </div>
                                                 </div>
                                                 <div className='mr-3' onClick={handleCloseProfile}>
