@@ -66,16 +66,16 @@ function NotesComponent () {
             <TakeNoteOnClkComponent updatedList={updateNotesList} />
         </div>
         <div className="flex flex-wrap w-5/6 m-auto gap-2 mt-10" >
-            <h1 className="block font-bold">Pinned</h1>
+            {pinNotesList.length == 0 ? "" : <h1 className="block font-bold">Pinned</h1>}
             {pinNotesList.map( (val:NoteObj) => {
                 return (<>
                     <NoteCardComponent data={val} pin={true} updatedList={updateNotesList} />
                 </>)
-            } )}           
+            } )}      
         </div>
-        <hr className="mt-10 h-[2px] bg-slate-400" />
-        <div className="flex flex-wrap w-5/6 m-auto gap-2 mt-10" >
-            <h1 className="block font-bold">Others</h1>
+        {pinNotesList.length == 0 ? "" : <hr className="mt-10 h-[2px] bg-slate-400" />}
+        {notesList.length == 0 ? <h1 className="block font-bold">Notes are empty</h1> : <h1 className="block font-bold">Others</h1>}
+        <div className="grid grid-cols-4 w-full m-auto gap-2" >
             {notesList.map( (val:NoteObj) => {
                 return (<>
                     <NoteCardComponent data={val} pin={false} updatedList={updateNotesList} />
