@@ -36,7 +36,7 @@ function ArchiveComponnet () {
     }
 
     return (<>
-        <div className="flex flex-wrap w-5/6 m-auto gap-2 mt-[-50px]" >
+        <div className="grid grid-cols-4 w-full m-auto gap-2 mt-[-50px]" >
             {archiveList.map( (val:NoteObj) => {
                 return (<>
                     <NoteCardComponent data={val} pin={false} updatedList={updateArchiveList} />

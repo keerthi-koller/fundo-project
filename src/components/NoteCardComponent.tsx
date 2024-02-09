@@ -50,7 +50,7 @@ function NoteCardComponent ({data, updatedList, pin}:{data:NoteObj,updatedList:F
         setAnchorElMore(null);
     };
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -185,9 +185,9 @@ function NoteCardComponent ({data, updatedList, pin}:{data:NoteObj,updatedList:F
     return (<>
                 <section className="group/item1 flex mt-10 xl:mt-20 xl:m-auto ml-1 w-[150px] xl:w-[250px] relative">
                     <div className="group/edit invisible group-hover/item1:visible">
-                        <h1 className="bg-white w-[25px] h-[20px] rounded-full absolute left-0 top-0"><CheckCircleIcon sx={{fontSize: 30}} /></h1>
+                        <h1 className="bg-white w-[25px] h-[20px] rounded-full absolute left-[-10px] top-[-10px]"><CheckCircleIcon sx={{fontSize: 30}} /></h1>
                     </div>
-                    <div id="cardDiv" className="shadow-lg shadow-indigo-500/100 w-full flex flex-col rounded-xl" style={{backgroundColor:`${data.color}`}}>
+                    <div id="cardDiv" className="border-[3px] w-full flex flex-col rounded-xl" style={{backgroundColor:`${data.color}`}}>
                         <div className="flex p-5 w-full justify-between text-wrap">
                             <h1 className="font-normal text-2xl font-bold" onClick={handleOpen}>{data.title}</h1>
                             { pin ?
